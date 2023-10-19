@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Aggiunto
+
+- Aggiunta funzionalità di logout.
+- Aggiunto menù dell'applicazione.
+
 ## [0.0.12]
 
 ### Aggiunto
