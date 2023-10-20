@@ -11,12 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - +Aggiunta funzionalità di logout.
 - +Aggiunto menù dell'applicazione.
-- Aggiornato authService per il reindirizzamento alla pagina di login dopo l'operazione di logout.
 - Aggiunto componente per la singola sezione del menu.
 
 
 ### Features Cambiate
 - Aggiornata topbar con il nome dell'utente e la possibilià di effettuare il logout.
+- Aggiornato authService per il reindirizzamento alla pagina di login dopo l'operazione di logout.
 - Aggiornato sidenav con l'aggiunta delle sezioni del menu.
 
 ## [0.0.12]
