@@ -1,14 +1,8 @@
+import { ROLE } from '@api-interfaces';
+
 export const ROLE_SEED: any = [
   {
-    name: 'SuperAdmin',
-    permissions: {
-      description: 'permission1',
-      active: true,
-    },
-    isModifiable: false,
-  },
-  {
-    name: 'Admin',
+    name: ROLE.ADMIN,
     permissions: {
       description: 'permission1',
       active: true,
@@ -16,7 +10,7 @@ export const ROLE_SEED: any = [
     isModifiable: true,
   },
   {
-    name: 'Collaboratore',
+    name: ROLE.COLLABORATOR,
     permissions: {
       description: 'permission1',
       active: false,

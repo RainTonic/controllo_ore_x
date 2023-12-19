@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
-import { isUserLoggedIn, isUserNotLoggedIn } from './_core/guards/auth.guard';
+import { authGuard } from '@app/_core/guards/auth.guard';
+import { unauthGuard } from '@app/_core/guards/unauth.guard';
 
 export const appRoutes: Route[] = [
   {
@@ -8,17 +9,17 @@ export const appRoutes: Route[] = [
       import('./modules/unauth/unauth.module').then(
         (module) => module.UnauthModule,
       ),
-    canActivate: [isUserNotLoggedIn],
+    canActivate: [unauthGuard],
   },
   {
     path: 'auth',
     loadChildren: (): any =>
       import('./modules/auth/auth.module').then((module) => module.AuthModule),
-    canActivate: [isUserLoggedIn],
+    canActivate: [authGuard],
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '',
+    redirectTo: 'auth',
   },
 ];
