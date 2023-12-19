@@ -60,10 +60,6 @@ const routes: Routes = [
           import('./modules/project/project.module').then(
             (module) => module.ProjectModule,
           ),
-        canActivate: [roleGuard],
-        data: {
-          roles: [ROLE.ADMIN],
-        },
       },
       {
         path: 'etichette',

@@ -6,7 +6,6 @@ export const MANAGEMENT_MENU_SECTIONS: IMenuSection[] = [
     label: 'Progetti',
     routerLink: 'progetti',
     iconName: 'egg',
-    roles: [ROLE.ADMIN],
   },
   {
     label: 'Clienti',

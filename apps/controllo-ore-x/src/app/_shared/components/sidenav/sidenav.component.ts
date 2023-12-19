@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { ROLE } from '@api-interfaces';
 import { ADMINISTRATION_MENU_SECTIONS } from '@app/_core/config/administration-menu-sections.config';
 import { MAIN_MENU_SECTIONS } from '@app/_core/config/main-menu-sections.config';
 import { MANAGEMENT_MENU_SECTIONS } from '@app/_core/config/management-menu-sections.config';
@@ -22,6 +23,7 @@ export class SidenavComponent
   MAIN_MENU_SECTIONS: IMenuSection[] = MAIN_MENU_SECTIONS;
   ADMINISTRATION_MENU_SECTIONS: IMenuSection[] = ADMINISTRATION_MENU_SECTIONS;
   MANAGEMENT_MENU_SECTIONS: IMenuSection[] = MANAGEMENT_MENU_SECTIONS;
+  ROLE: typeof ROLE = ROLE;
 
   isSidenavOpen: boolean = true;
 

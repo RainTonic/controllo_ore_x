@@ -1,23 +1,30 @@
-import { BadRequestException, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
-import { CrudService } from '@shared/classes/crud-service.class';
-import { User } from '@modules/user/entities/user.entity';
+import { FindBoostedResult } from '@find-boosted';
 import { UserCreateDtoV } from '@modules/user/dtov/user-create.dtov';
 import { UserUpdateDtoV } from '@modules/user/dtov/user-update.dtov';
+import { User } from '@modules/user/entities/user.entity';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { DeleteResult, EntityManager, FindOptionsWhere } from 'typeorm';
-import { FindBoostedResult } from '@find-boosted';
+import { CrudService } from '@shared/classes/crud-service.class';
 import { ApiErrors } from '@shared/utils/errors/api-errors';
+import { DeleteResult, EntityManager, FindOptionsWhere } from 'typeorm';
 
 @Injectable()
-export class UserService extends CrudService<User, UserCreateDtoV, UserUpdateDtoV> {
+export class UserService extends CrudService<
+  User,
+  UserCreateDtoV,
+  UserUpdateDtoV
+> {
   target: typeof User = User;
 
-  constructor(
-    private _configService: ConfigService,
-  ) {
+  constructor(private _configService: ConfigService) {
     super();
   }
-  
+
   /**
    * Create a user
    * @param data The user data
@@ -37,14 +44,20 @@ export class UserService extends CrudService<User, UserCreateDtoV, UserUpdateDto
    * @throws UnprocessableEntityException if the user is not deletable
    * @returns The result of the delete operation
    */
-  async delete(findConditions: string | FindOptionsWhere<User>, TX?: EntityManager): Promise<DeleteResult> {
+  async delete(
+    findConditions: string | FindOptionsWhere<User>,
+    TX?: EntityManager,
+  ): Promise<DeleteResult> {
     if (typeof findConditions === 'string') {
       const user: User = await this.getOne(findConditions, [], TX);
       if (!user.isDeletable) {
         throw new UnprocessableEntityException('Impossible to delete user.');
       }
     } else {
-      const users: FindBoostedResult<User> = await this.getMany({ where: findConditions }, TX);
+      const users: FindBoostedResult<User> = await this.getMany(
+        { where: findConditions },
+        TX,
+      );
       for (const user of users.data) {
         if (!user.isDeletable) {
           throw new UnprocessableEntityException('Impossible to delete user.');
@@ -62,14 +75,13 @@ export class UserService extends CrudService<User, UserCreateDtoV, UserUpdateDto
    * @throws NotFoundException if the password is wrong
    * @returns The user with the given email and password
    */
-  async getUserByEmailAndPassword(email: string, password: string): Promise<User> {
+  async getUserByEmailAndPassword(
+    email: string,
+    password: string,
+  ): Promise<User> {
     const user: User = await this.getRepository().findOne({
       where: { email },
-      select: [
-        '_id',
-        'email',
-        'password',
-      ],
+      select: ['_id', 'email', 'password'],
     });
     if (!user) {
       throw new BadRequestException(ApiErrors.MISSING_USER_DATA);
@@ -78,7 +90,6 @@ export class UserService extends CrudService<User, UserCreateDtoV, UserUpdateDto
       throw new NotFoundException(ApiErrors.WRONG_CREDENTIALS);
     }
 
-    return this.getOne(user._id);
+    return this.getOne(user._id, ['role']);
   }
-
 }
