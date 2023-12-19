@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ROLE } from '@api-interfaces';
+import { roleGuard } from '@app/_core/guards/role.guard';
 import { DashboardPage } from '@modules/auth/pages/dashboard/dashboard.page';
 
 const routes: Routes = [
@@ -25,6 +27,10 @@ const routes: Routes = [
           import('./modules/report/report.module').then(
             (module) => module.ReportModule,
           ),
+        canActivate: [roleGuard],
+        data: {
+          roles: [ROLE.ADMIN],
+        },
       },
       {
         path: 'team',
@@ -32,6 +38,10 @@ const routes: Routes = [
           import('./modules/team/team.module').then(
             (module) => module.TeamModule,
           ),
+        canActivate: [roleGuard],
+        data: {
+          roles: [ROLE.ADMIN],
+        },
       },
       {
         path: 'clienti',
@@ -39,6 +49,10 @@ const routes: Routes = [
           import('./modules/customer/customer.module').then(
             (module) => module.CustomerModule,
           ),
+        canActivate: [roleGuard],
+        data: {
+          roles: [ROLE.ADMIN],
+        },
       },
       {
         path: 'progetti',
@@ -46,6 +60,10 @@ const routes: Routes = [
           import('./modules/project/project.module').then(
             (module) => module.ProjectModule,
           ),
+        canActivate: [roleGuard],
+        data: {
+          roles: [ROLE.ADMIN],
+        },
       },
       {
         path: 'etichette',
@@ -53,6 +71,10 @@ const routes: Routes = [
           import('./modules/hoursTag/hoursTag.module').then(
             (module) => module.HoursTagModule,
           ),
+        canActivate: [roleGuard],
+        data: {
+          roles: [ROLE.ADMIN],
+        },
       },
       {
         path: 'ferie-permessi',

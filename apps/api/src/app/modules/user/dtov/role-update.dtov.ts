@@ -1,13 +1,12 @@
-import { RoleUpdateDto } from '@api-interfaces';
+import { ROLE, RoleUpdateDto } from '@api-interfaces';
 import { IsOptional, IsString } from 'class-validator';
 
 export class RoleUpdateDtoV implements RoleUpdateDto {
-  @IsOptional() 
-  @IsString() 
+  @IsOptional()
+  @IsString()
   permissions?: string;
-  
-  @IsOptional() 
-  @IsString() 
-  name?: string;
 
+  @IsOptional()
+  @IsString()
+  name?: ROLE;
 }

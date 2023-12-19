@@ -1,3 +1,5 @@
+import { ROLE } from '@api-interfaces';
+
 /**
  * A configuration object that describes a nav-bar section.
  */
@@ -7,8 +9,8 @@ export interface IMenuSection {
    */
   label: string;
   /**
-   * The route that should be linked to this specific menu section. 
-   * 
+   * The route that should be linked to this specific menu section.
+   *
    * @example
    * Component: `Contacts.page.ts` =>
    * Route at which the component is mounted: ` /contacts` =>
@@ -19,4 +21,6 @@ export interface IMenuSection {
    * The icon for the menu section. Should be a google icon. [https://fonts.google.com/icons]
    */
   iconName: string;
+
+  roles?: ROLE[];
 }
