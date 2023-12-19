@@ -1,16 +1,23 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ApiPaginatedResponse, ReleaseReadDto } from '@api-interfaces';
 import { ReleaseDataService } from '@app/_core/services/release.data-service';
 import {
   SubscriptionsLifecycle,
   completeSubscriptions,
 } from '@app/utils/subscriptions_lifecycle';
-import { BehaviorSubject, Subscription } from 'rxjs';
-import { ReleaseDialog } from '../../dialogs/release-dialog/release.dialog';
 import {
   RT_DIALOG_CLOSE_RESULT,
   RtDialogService,
 } from '@controllo-ore-x/rt-shared';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { ReleaseDialog } from '../../dialogs/release-dialog/release.dialog';
 
 @Component({
   selector: 'controllo-ore-x-release-table',
@@ -21,6 +28,7 @@ export class ReleaseTableComponent
   implements OnInit, OnDestroy, SubscriptionsLifecycle
 {
   @Input() projectId!: string;
+  @Output() updated: EventEmitter<void> = new EventEmitter<void>();
 
   isLoading: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
@@ -95,6 +103,7 @@ export class ReleaseTableComponent
         next: (releases: ApiPaginatedResponse<ReleaseReadDto>) => {
           this.releases = releases.data;
           this.isLoading.next(false);
+          this.updated.emit();
         },
         error: (error: any) => {
           throw new Error(error);

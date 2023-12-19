@@ -4,6 +4,9 @@
     [wasProjectUpdated]="wasProjectUpdated"
   ></controllo-ore-x-project-status-info>
 
-  <controllo-ore-x-release-table [projectId]="projectId">
+  <controllo-ore-x-release-table
+    [projectId]="projectId"
+    (updated)="wasProjectUpdated.next(true)"
+  >
   </controllo-ore-x-release-table>
 </div>

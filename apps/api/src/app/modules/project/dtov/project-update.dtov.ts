@@ -1,25 +1,42 @@
 import { ProjectUpdateDto } from '@api-interfaces';
-import { IsDate, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
+import {
+  IsDate,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 
 export class ProjectUpdateDtoV implements ProjectUpdateDto {
-  @IsOptional() 
-  @IsString() 
+  @IsOptional()
+  @IsString()
   name?: string;
 
-  @IsOptional() 
+  @IsOptional()
   @IsUUID()
   customerId?: string;
 
-  @IsOptional() 
-  @IsString() 
+  @IsUUID()
+  @IsOptional()
+  projectManagerId?: string;
+
+  @IsOptional()
+  @IsString()
   color?: string;
 
-  @IsOptional() 
-  @IsNumber() 
+  @IsOptional()
+  @IsNumber()
   hoursBudget?: number;
 
-  @IsOptional() 
-  @IsDate() 
+  @IsOptional()
+  @IsNumber()
+  billableHoursBudget?: number;
+
+  @IsOptional()
+  @IsDate()
   deadline?: Date;
 
+  @IsOptional()
+  @IsDate()
+  customerDeadline?: Date;
 }

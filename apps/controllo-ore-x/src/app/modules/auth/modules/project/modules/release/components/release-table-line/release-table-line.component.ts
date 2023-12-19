@@ -36,6 +36,7 @@ export class ReleaseTableLineComponent
 
   hoursExecuted: number = 0;
   deadline: string = '';
+  customerDeadline: string = '';
 
   subscriptionsList: Subscription[] = [];
 
@@ -55,7 +56,10 @@ export class ReleaseTableLineComponent
     if (typeof this.release !== 'object') {
       throw new Error('release must be a ReleaseReadDto object');
     }
-    this._formatDeadline(this.release.deadline);
+    this.deadline = this._formatDeadline(this.release.deadline);
+    this.customerDeadline = this._formatDeadline(
+      this.release.managementDeadline,
+    );
 
     this.setSubscriptions();
   }
@@ -116,8 +120,8 @@ export class ReleaseTableLineComponent
       });
   }
 
-  private _formatDeadline(deadline: Date): void {
-    this.deadline = new Intl.DateTimeFormat(navigator.language).format(
+  private _formatDeadline(deadline: Date): string {
+    return new Intl.DateTimeFormat(navigator.language).format(
       new Date(deadline),
     );
   }
