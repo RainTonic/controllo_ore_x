@@ -2,9 +2,13 @@
   <div class="-header__information">
     <div class="body-2 -header__information__data">Nome</div>
     <div class="body-2 -header__information__data">Consegna</div>
-    <div class="body-2 -header__information__data">Consegna cliente</div>
+    <div class="body-2 -header__information__data" *appHasRole="ROLE.ADMIN">
+      Consegna cliente
+    </div>
     <div class="body-2 -header__information__data">Budget</div>
-    <div class="body-2 -header__information__data">Ore fatturabili</div>
+    <div class="body-2 -header__information__data" *appHasRole="ROLE.ADMIN">
+      Ore fatturabili
+    </div>
     <div class="body-2 -header__information__data"></div>
     <div></div>
   </div>

@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
+import { HasRoleDirective } from '@app/_core/directives/has-role.directive';
 import {
   RtDialogModule,
   RtInputModule,
@@ -58,6 +59,7 @@ import { ProjectRoutingModule } from './project-routing.module';
     MatProgressBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    HasRoleDirective,
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'it-IT' }],
 })

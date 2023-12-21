@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiResponse, LoginResponseDto, UserReadDto } from '@api-interfaces';
+import {
+  ApiResponse,
+  LoginResponseDto,
+  ROLE,
+  UserReadDto,
+} from '@api-interfaces';
 import { environment } from '@env';
 import { lastValueFrom } from 'rxjs';
 
@@ -27,6 +32,10 @@ export class AuthService {
    */
   isAuthenticated(): boolean {
     return !!this.authToken;
+  }
+
+  isAdmin(): boolean {
+    return this.loggedInUser?.role?.name === ROLE.ADMIN;
   }
 
   /**

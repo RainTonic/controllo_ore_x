@@ -3,6 +3,7 @@ import {
   ApiPaginatedResponse,
   ApiResponse,
   ProjectReadDto,
+  ROLE,
   ReleaseReadDto,
 } from '@api-interfaces';
 import { ProjectDataService } from '@app/_core/services/project.data-service';
@@ -35,6 +36,8 @@ export class ProjectStatusInfoComponent
   billableReleasesHours: number = 0;
   billedReleasesHours: number = 0;
   isCompleted: boolean = true;
+
+  ROLE: typeof ROLE = ROLE;
 
   subscriptionsList: Subscription[] = [];
 

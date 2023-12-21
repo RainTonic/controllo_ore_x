@@ -63,10 +63,6 @@
 
       <div class="body-2">{{ formatDate(project.deadline) }}</div>
     </div>
-  </div>
-
-  <div *ngIf="project" class="-info">
-    <div class="headline-6">Progetto</div>
 
     <div class="-info__line">
       <div class="body-2 -info__line__title">
@@ -76,36 +72,7 @@
 
       <div class="body-2">{{ convertNumberToHours(project.hoursBudget) }}</div>
     </div>
-    <div class="-info__line">
-      <div class="body-2 -info__line__title">
-        <span class="material-symbols-outlined">avg_time</span>
-        Budget ore fatturabili
-      </div>
 
-      <div class="body-2">
-        <div class="body-2">
-          {{ convertNumberToHours(project.billableHoursBudget) }}
-        </div>
-      </div>
-    </div>
-    <div class="-info__line">
-      <div class="body-2 -info__line__title">
-        <span class="material-symbols-outlined">paid</span>
-        Sommatoria ore fatturate
-      </div>
-
-      <div class="body-2">
-        {{ convertNumberToHours(hoursExecuted) }}
-      </div>
-    </div>
-    <div class="-info__line">
-      <div class="body-2 -info__line__title">
-        <span class="material-symbols-outlined">event</span>
-        Consegna cliente
-      </div>
-
-      <div class="body-2">{{ formatDate(project.customerDeadline) }}</div>
-    </div>
     <div class="-info__line">
       <div class="body-2 -info__line__title">
         <span class="material-symbols-outlined">face</span>
@@ -118,36 +85,59 @@
     </div>
   </div>
 
-  <div *ngIf="project" class="-info">
-    <div class="headline-6">Release</div>
+  <ng-container *appHasRole="ROLE.ADMIN">
+    <div *ngIf="project" class="-info">
+      <div class="headline-6">Amministrazione</div>
 
-    <div class="-info__line">
-      <div class="body-2 -info__line__title">
-        <span class="material-symbols-outlined">tag</span>
-        Numero di release
+      <div class="-info__line">
+        <div class="body-2 -info__line__title">
+          <span class="material-symbols-outlined">avg_time</span>
+          Budget ore fatturabili
+        </div>
+
+        <div class="body-2">
+          <div class="body-2">
+            {{ convertNumberToHours(project.billableHoursBudget) }}
+          </div>
+        </div>
+      </div>
+      <div class="-info__line">
+        <div class="body-2 -info__line__title">
+          <span class="material-symbols-outlined">paid</span>
+          Sommatoria ore fatturate
+        </div>
+
+        <div class="body-2">
+          {{ convertNumberToHours(hoursExecuted) }}
+        </div>
+      </div>
+      <div class="-info__line">
+        <div class="body-2 -info__line__title">
+          <span class="material-symbols-outlined">event</span>
+          Consegna cliente
+        </div>
+
+        <div class="body-2">{{ formatDate(project.customerDeadline) }}</div>
       </div>
 
-      <div class="body-2">{{ releases?.length ?? '-' }}</div>
+      <div class="-info__line">
+        <div class="body-2 -info__line__title">
+          <span class="material-symbols-outlined">tag</span>
+          Numero di release
+        </div>
+
+        <div class="body-2">{{ releases?.length ?? '-' }}</div>
+      </div>
+      <div class="-info__line">
+        <div class="body-2 -info__line__title">
+          <span class="material-symbols-outlined">avg_time</span>
+          Sommatoria ore fatturabili
+        </div>
+
+        <div class="body-2">
+          {{ convertNumberToHours(billableReleasesHours) }}
+        </div>
+      </div>
     </div>
-    <div class="-info__line">
-      <div class="body-2 -info__line__title">
-        <span class="material-symbols-outlined">avg_time</span>
-        Sommatoria ore fatturabili
-      </div>
-
-      <div class="body-2">
-        {{ convertNumberToHours(billableReleasesHours) }}
-      </div>
-    </div>
-    <div class="-info__line">
-      <div class="body-2 -info__line__title">
-        <span class="material-symbols-outlined">paid</span>
-        Sommatoria ore fatturate
-      </div>
-
-      <div class="body-2">
-        {{ convertNumberToHours(hoursExecuted) }}
-      </div>
-    </div>
-  </div>
+  </ng-container>
 </div>

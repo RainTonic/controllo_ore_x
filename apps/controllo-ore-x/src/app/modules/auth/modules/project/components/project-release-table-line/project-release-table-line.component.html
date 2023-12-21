@@ -23,7 +23,7 @@
         Planned
       </mat-chip>
     </div>
-    <div class="body-1 -release__data__deadline">{{ deadline }}</div>
+    <div class="body-1 -release__data__deadline">Consegna: {{ deadline }}</div>
     <div class="-release__data__progress">
       <mat-progress-bar
         class="-release__data__progress__bar"
@@ -40,7 +40,7 @@
       </div>
     </div>
   </div>
-  <div class="-release-table-line-edit-and-report">
+  <div class="-release-table-line-edit-and-report" *appHasRole="ROLE.ADMIN">
     <button mat-icon-button (click)="openEditReleaseDialog()">
       <span class="material-symbols-outlined icon">ink_marker</span>
     </button>

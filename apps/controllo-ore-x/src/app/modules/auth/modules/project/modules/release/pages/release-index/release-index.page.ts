@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiResponse, ProjectReadDto } from '@api-interfaces';
+import { ApiResponse, ProjectReadDto, ROLE } from '@api-interfaces';
 import { ProjectDataService } from '@app/_core/services/project.data-service';
 import {
   SubscriptionsLifecycle,
@@ -29,7 +29,7 @@ export class ReleaseIndexPage
   );
 
   isLoading: boolean = true;
-
+  ROLE: typeof ROLE = ROLE;
   subscriptionsList: Subscription[] = [];
 
   completeSubscriptions: (subscriptionsList: Subscription[]) => void =

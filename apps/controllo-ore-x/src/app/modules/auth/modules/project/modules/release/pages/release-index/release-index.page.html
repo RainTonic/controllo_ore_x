@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <div class="-header__options">
+    <div class="-header__options" *appHasRole="ROLE.ADMIN">
       <!-- TODO: add export functionality -->
       <button
         mat-flat-button
@@ -58,7 +58,7 @@
         </div>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Stato">
+    <mat-tab label="Stato" *appHasRole="ROLE.ADMIN">
       <ng-template matTabContent>
         <div *ngIf="project">
           <controllo-ore-x-project-release-status [projectId]="project._id">

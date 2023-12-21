@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ApiResponse, ReleaseReadDto } from '@api-interfaces';
+import { ApiResponse, ROLE, ReleaseReadDto } from '@api-interfaces';
 import { ReleaseDataService } from '@app/_core/services/release.data-service';
 import {
   SubscriptionsLifecycle,
@@ -21,6 +21,7 @@ export class ReleaseStatusInfoComponent
     new BehaviorSubject<boolean>(false);
 
   release?: ReleaseReadDto;
+  ROLE: typeof ROLE = ROLE;
 
   hoursExecuted: number = 0;
 

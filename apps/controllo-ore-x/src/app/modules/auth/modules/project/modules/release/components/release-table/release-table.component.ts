@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ApiPaginatedResponse, ReleaseReadDto } from '@api-interfaces';
+import { ApiPaginatedResponse, ROLE, ReleaseReadDto } from '@api-interfaces';
 import { ReleaseDataService } from '@app/_core/services/release.data-service';
 import {
   SubscriptionsLifecycle,
@@ -35,6 +35,8 @@ export class ReleaseTableComponent
   releases: ReleaseReadDto[] = [];
 
   subscriptionsList: Subscription[] = [];
+
+  ROLE: typeof ROLE = ROLE;
 
   completeSubscriptions: (subscriptionsList: Subscription[]) => void =
     completeSubscriptions;

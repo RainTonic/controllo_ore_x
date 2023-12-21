@@ -8,26 +8,27 @@ import {
   HoursTagReadDto,
   INDEX_CONFIGURATION_KEY,
   IndexConfigurationReadDto,
+  ROLE,
   ReleaseReadDto,
   UserHoursReadDto,
   UserReadDto,
 } from '@api-interfaces';
+import { HoursTagDataService } from '@app/_core/services/hours-tag.data-service';
+import { IndexConfigurationDataService } from '@app/_core/services/index-configuration.data-service';
 import { ReleaseDataService } from '@app/_core/services/release.data-service';
+import { TeamDataService } from '@app/_core/services/team.data-service';
+import { TrackerDataService } from '@app/_core/services/tracker.data-service';
+import { ReportPage } from '@app/_shared/classes/report-page.class';
+import { CalendarDateService } from '@app/_shared/components/index-template/services/calendar-date.service';
+import { FilterService } from '@app/_shared/components/report-template/services/filter.service';
 import {
   RT_DIALOG_CLOSE_RESULT,
   RtDialogService,
 } from '@controllo-ore-x/rt-shared';
-import { BehaviorSubject, Subscription, firstValueFrom } from 'rxjs';
-import { ReleaseDialog } from '../../dialogs/release-dialog/release.dialog';
-import { ReportPage } from '@app/_shared/classes/report-page.class';
-import { IndexConfigurationDataService } from '@app/_core/services/index-configuration.data-service';
-import { TrackerDataService } from '@app/_core/services/tracker.data-service';
 import { RtLoadingService } from 'libs/rt-shared/src/rt-loading/services/rt-loading.service';
-import { FilterService } from '@app/_shared/components/report-template/services/filter.service';
-import { CalendarDateService } from '@app/_shared/components/index-template/services/calendar-date.service';
-import { TeamDataService } from '@app/_core/services/team.data-service';
-import { HoursTagDataService } from '@app/_core/services/hours-tag.data-service';
+import { BehaviorSubject, Subscription, firstValueFrom } from 'rxjs';
 import { HOURS_TAG_SEED } from '../../../../../../../../../../../api/src/app/modules/user-hours/seeds/hours-tag.seed';
+import { ReleaseDialog } from '../../dialogs/release-dialog/release.dialog';
 
 @Component({
   selector: 'controllo-ore-x-report-index',
@@ -46,6 +47,7 @@ export class ReportIndexPage extends ReportPage<
   buttonText = '';
   subTitle: string = '';
   subTitleHours: number = 0;
+  ROLE: typeof ROLE = ROLE;
 
   override isTableTopbarVisible: boolean = false;
   override isCompletePage: boolean = false;

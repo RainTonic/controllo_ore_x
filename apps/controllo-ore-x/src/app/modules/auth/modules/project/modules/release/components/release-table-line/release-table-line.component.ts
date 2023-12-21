@@ -7,7 +7,12 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiResponse, ReleaseReadDto, UserHoursReadDto } from '@api-interfaces';
+import {
+  ApiResponse,
+  ROLE,
+  ReleaseReadDto,
+  UserHoursReadDto,
+} from '@api-interfaces';
 import { UserHoursDataService } from '@app/_core/services/user-hour.data-service';
 import { convertNumberToHours } from '@app/utils/NumberToHoursConverter';
 import {
@@ -39,6 +44,8 @@ export class ReleaseTableLineComponent
   customerDeadline: string = '';
 
   subscriptionsList: Subscription[] = [];
+
+  ROLE: typeof ROLE = ROLE;
 
   completeSubscriptions: (subscriptionsList: Subscription[]) => void =
     completeSubscriptions;

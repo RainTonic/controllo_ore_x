@@ -9,7 +9,7 @@
     <div class="body-1 -release__data__section">
       {{ deadline }}
     </div>
-    <div class="body-1 -release__data__section">
+    <div class="body-1 -release__data__section" *appHasRole="ROLE.ADMIN">
       {{ customerDeadline }}
     </div>
     <div class="-release__data__section -release__data__section__progress">
@@ -27,11 +27,15 @@
         </div>
       </div>
     </div>
-    <div class="body-1 -release__data__section">
+    <div class="body-1 -release__data__section" *appHasRole="ROLE.ADMIN">
       {{ convertNumberToHours(release.billableHoursBudget) }}
     </div>
     <div class="-release__data__options">
-      <button mat-icon-button (click)="openEditRelease(release)">
+      <button
+        mat-icon-button
+        (click)="openEditRelease(release)"
+        *appHasRole="ROLE.ADMIN"
+      >
         <span class="material-symbols-outlined -release__data__options__icon"
           >ink_marker
         </span>
