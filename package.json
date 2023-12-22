@@ -1,6 +1,6 @@
 {
   "name": "@controllo-ore-x/source",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "scripts": {
     "build": "nx run-many --parallel --target=build --projects=controllo-ore-x,api",
