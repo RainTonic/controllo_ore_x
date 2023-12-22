@@ -5,9 +5,11 @@ import {
   ApiPaginatedResponse,
   CustomerReadDto,
   ProjectReadDto,
+  UserReadDto,
 } from '@api-interfaces';
 import { CustomerDataService } from '@app/_core/services/customer.data-service';
 import { ProjectDataService } from '@app/_core/services/project.data-service';
+import { TeamDataService } from '@app/_core/services/team.data-service';
 import {
   SubscriptionsLifecycle,
   completeSubscriptions,
@@ -45,12 +47,16 @@ export class ProjectDialog
   projectFormGroup: FormGroup = new FormGroup({
     name: new FormControl(null, Validators.required),
     customer: new FormControl(null, Validators.required),
-    color: new FormControl(null, Validators.required),
-    hoursBudget: new FormControl(null, Validators.required),
-    deadline: new FormControl(null, Validators.required),
+    projectManager: new FormControl(null),
+    color: new FormControl(null),
+    hoursBudget: new FormControl(null),
+    billableHoursBudget: new FormControl(null),
+    deadline: new FormControl(null),
+    customerDeadline: new FormControl(null),
   });
 
   projectCustomers: CustomerReadDto[] = [];
+  users: UserReadDto[] = [];
   colors: string[] = [...ProjectColor];
 
   subscriptionsList: Subscription[] = [];
@@ -60,6 +66,7 @@ export class ProjectDialog
 
   constructor(
     private _projectDataService: ProjectDataService,
+    private _usersDataSvc: TeamDataService,
     public dialogRef: MatDialogRef<ProjectDialog>,
     private _alertService: AlertService,
     @Inject(MAT_DIALOG_DATA)
@@ -91,7 +98,10 @@ export class ProjectDialog
   }
 
   setSubscriptions(): void {
-    this.subscriptionsList.push(this._fetchSetProjectCustomers());
+    this.subscriptionsList.push(
+      this._fetchSetProjectCustomers(),
+      this._fetchSetProjectManager(),
+    );
   }
 
   onDelete(): void {
@@ -248,9 +258,22 @@ export class ProjectDialog
    * Fetch and set the project's customers.
    */
   private _fetchSetProjectCustomers(): Subscription {
-    return this._customerDataService.getMany({}).subscribe({
+    return this._customerDataService.getMany({ pagination: false }).subscribe({
       next: (customers: ApiPaginatedResponse<CustomerReadDto>) => {
         this.projectCustomers = customers.data;
+      },
+      error: (error: any) => {
+        throw new Error(error);
+      },
+    });
+  }
+  /**
+   * Fetch and set the project's customers.
+   */
+  private _fetchSetProjectManager(): Subscription {
+    return this._usersDataSvc.getMany({ pagination: false }).subscribe({
+      next: (users: ApiPaginatedResponse<UserReadDto>) => {
+        this.users = users.data;
       },
       error: (error: any) => {
         throw new Error(error);

@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProjectReadDto } from '@api-interfaces';
+import { ProjectReadDto, ROLE } from '@api-interfaces';
 import {
   SubscriptionsLifecycle,
   completeSubscriptions,
@@ -41,6 +41,7 @@ export class ProjectComponent
 
   isPanelOpen: boolean = false;
   customExpandedHeight: string = '90px';
+  ROLE: typeof ROLE = ROLE;
 
   subscriptionsList: Subscription[] = [];
 

@@ -6,6 +6,7 @@ import {
   ProjectReadDto,
   ProjectUpdateDto,
 } from '@api-interfaces';
+import { AuthService } from '@app/_core/services/auth.service';
 import { IndexConfigurationDataService } from '@app/_core/services/index-configuration.data-service';
 import { ProjectDataService } from '@app/_core/services/project.data-service';
 import { IndexPage } from '@app/_shared/classes/index-page.class';
@@ -33,6 +34,7 @@ export class ProjectIndexPage
   pageTitle = 'Progetti';
   buttonIcon = 'egg';
   buttonText = 'Nuovo Progetto';
+  isAdmin: boolean = false;
 
   CONFIGURATION_KEY: INDEX_CONFIGURATION_KEY = INDEX_CONFIGURATION_KEY.PROJECT;
   isItLoading: boolean = false;
@@ -55,8 +57,10 @@ export class ProjectIndexPage
     protected _dataService: ProjectDataService,
     protected _loadingService: RtLoadingService,
     private _rtDialogService: RtDialogService,
+    private _authSvc: AuthService,
   ) {
     super();
+    this.isAdmin = this._authSvc.isAdmin();
   }
 
   override ngOnInit(): void {

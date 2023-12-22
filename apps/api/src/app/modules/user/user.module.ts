@@ -1,3 +1,4 @@
+import { ROLE } from '@api-interfaces';
 import { UserController } from '@modules/user/controllers/user.controller';
 import { Role } from '@modules/user/entities/role.entity';
 import { User } from '@modules/user/entities/user.entity';
@@ -41,7 +42,7 @@ export class UserModule {
     Logger.log('[SEED USER] Start seeding...');
     return this._dataSource.transaction(async (TX) => {
       const defaultAdminRole: Role = await this._roleService.getOneBy({
-        name: 'Admin',
+        name: ROLE.ADMIN,
       });
       for (const user of USER_SEED) {
         const userSaved: User = await this._userService.getOneBy(

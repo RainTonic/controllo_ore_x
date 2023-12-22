@@ -1,6 +1,8 @@
+import { ROLE } from '../../enums/role.enum';
+
 export interface RoleReadDto {
   _id: string;
-  name: string;
+  name: ROLE;
   permissions: string;
   isModifiable: boolean;
   createdAt?: Date | string;
@@ -9,11 +11,11 @@ export interface RoleReadDto {
 }
 
 export interface RoleCreateDto {
-  name: string;
+  name: ROLE;
   permissions: string;
 }
 
 export interface RoleUpdateDto {
-  name?: string;
+  name?: ROLE;
   permissions?: string;
 }

@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiResponse, LoginResponseDto, UserReadDto } from '@api-interfaces';
+import {
+  ApiResponse,
+  LoginResponseDto,
+  ROLE,
+  UserReadDto,
+} from '@api-interfaces';
 import { environment } from '@env';
 import { lastValueFrom } from 'rxjs';
 
@@ -15,20 +20,22 @@ export class AuthService {
   loggedInUser?: UserReadDto;
   authToken?: string;
 
-  private _loginUri: string = environment.apiUri + '/auth/login';
+  private _authUri: string = environment.apiUri + '/auth';
 
   constructor(
     private _http: HttpClient,
     private _router: Router,
-  ) {
-    this._loadState();
-  }
+  ) {}
 
   /**
    * Checks if the user is authenticated.
    */
   isAuthenticated(): boolean {
     return !!this.authToken;
+  }
+
+  isAdmin(): boolean {
+    return this.loggedInUser?.role?.name === ROLE.ADMIN;
   }
 
   /**
@@ -47,10 +54,13 @@ export class AuthService {
   async login(email: string, password: string): Promise<boolean> {
     try {
       const loginResponse = await lastValueFrom(
-        this._http.post<ApiResponse<LoginResponseDto>>(this._loginUri, {
-          email,
-          password,
-        }),
+        this._http.post<ApiResponse<LoginResponseDto>>(
+          this._authUri + '/login',
+          {
+            email,
+            password,
+          },
+        ),
       );
 
       if (loginResponse) {
@@ -62,6 +72,33 @@ export class AuthService {
       return false;
     } catch (error) {
       return false;
+    }
+  }
+
+  /**
+   * Performs user login with the provided email and password.
+   */
+  async getMe(): Promise<void> {
+    try {
+      // debugger;
+      const storedAuthToken: string | null = localStorage.getItem(
+        AuthService._TOKEN_LS_KEY,
+      );
+
+      this.authToken = storedAuthToken || undefined;
+
+      const me = await lastValueFrom(
+        this._http.get<ApiResponse<UserReadDto>>(
+          this._authUri + '/me/' + storedAuthToken,
+        ),
+      );
+
+      if (me) {
+        this.loggedInUser = me.data;
+      }
+    } catch (error) {
+      console.error(error);
+      this.logout();
     }
   }
 
@@ -79,17 +116,17 @@ export class AuthService {
   /**
    * Reloads authentication state from local storage.
    */
-  private _loadState(): void {
-    const storedLoggedInUser: string | null = localStorage.getItem(
-      AuthService._CURRENT_USER_LS_KEY,
-    );
-    this.loggedInUser = storedLoggedInUser
-      ? (JSON.parse(storedLoggedInUser) as UserReadDto)
-      : undefined;
+  // private _loadState(): void {
+  //   const storedLoggedInUser: string | null = localStorage.getItem(
+  //     AuthService._CURRENT_USER_LS_KEY,
+  //   );
+  //   this.loggedInUser = storedLoggedInUser
+  //     ? (JSON.parse(storedLoggedInUser) as UserReadDto)
+  //     : undefined;
 
-    const storedAuthToken: string | null = localStorage.getItem(
-      AuthService._TOKEN_LS_KEY,
-    );
-    this.authToken = storedAuthToken || undefined;
-  }
+  //   const storedAuthToken: string | null = localStorage.getItem(
+  //     AuthService._TOKEN_LS_KEY,
+  //   );
+  //   this.authToken = storedAuthToken || undefined;
+  // }
 }

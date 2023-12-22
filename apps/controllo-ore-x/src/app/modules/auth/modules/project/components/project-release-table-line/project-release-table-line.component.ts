@@ -6,7 +6,12 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ApiResponse, ReleaseReadDto, UserHoursReadDto } from '@api-interfaces';
+import {
+  ApiResponse,
+  ROLE,
+  ReleaseReadDto,
+  UserHoursReadDto,
+} from '@api-interfaces';
 import { UserHoursDataService } from '@app/_core/services/user-hour.data-service';
 import { convertNumberToHours } from '@app/utils/NumberToHoursConverter';
 import {
@@ -30,6 +35,7 @@ export class ProjectReleaseTableLineComponent
 {
   hoursExecuted: number = 0;
   deadline: string = '';
+  ROLE: typeof ROLE = ROLE;
 
   @Input() release!: ReleaseReadDto;
 

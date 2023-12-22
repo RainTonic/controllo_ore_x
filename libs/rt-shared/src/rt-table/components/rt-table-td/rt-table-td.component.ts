@@ -17,7 +17,7 @@ export class RtTableTdComponent implements OnInit {
 
   valueToPrint: any;
 
-  roles: ROLE[] = [ROLE.SUPERADMIN, ROLE.ADMIN, ROLE.COLLABORATOR];
+  roles: ROLE[] = [ROLE.ADMIN, ROLE.COLLABORATOR];
 
   status: DAYOFF_STATUS[] = [
     DAYOFF_STATUS.APPROVED,

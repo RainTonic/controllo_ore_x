@@ -1,5 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ApiResponse, HoursTagReadDto, ReleaseReadDto } from '@api-interfaces';
+import {
+  ApiResponse,
+  HoursTagReadDto,
+  ROLE,
+  ReleaseReadDto,
+} from '@api-interfaces';
 import { ReleaseDataService } from '@app/_core/services/release.data-service';
 import { convertNumberToHours } from '@app/utils/NumberToHoursConverter';
 import {
@@ -22,6 +27,7 @@ export class ReleaseStatusDataComponent
     new BehaviorSubject<boolean>(false);
 
   release?: ReleaseReadDto;
+  ROLE: typeof ROLE = ROLE;
 
   hoursExecuted: number = 0;
   hoursOutOfBudget: number = 0;

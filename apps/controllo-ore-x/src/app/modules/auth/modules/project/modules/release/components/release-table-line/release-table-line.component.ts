@@ -7,7 +7,12 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiResponse, ReleaseReadDto, UserHoursReadDto } from '@api-interfaces';
+import {
+  ApiResponse,
+  ROLE,
+  ReleaseReadDto,
+  UserHoursReadDto,
+} from '@api-interfaces';
 import { UserHoursDataService } from '@app/_core/services/user-hour.data-service';
 import { convertNumberToHours } from '@app/utils/NumberToHoursConverter';
 import {
@@ -36,8 +41,11 @@ export class ReleaseTableLineComponent
 
   hoursExecuted: number = 0;
   deadline: string = '';
+  customerDeadline: string = '';
 
   subscriptionsList: Subscription[] = [];
+
+  ROLE: typeof ROLE = ROLE;
 
   completeSubscriptions: (subscriptionsList: Subscription[]) => void =
     completeSubscriptions;
@@ -55,7 +63,10 @@ export class ReleaseTableLineComponent
     if (typeof this.release !== 'object') {
       throw new Error('release must be a ReleaseReadDto object');
     }
-    this._formatDeadline(this.release.deadline);
+    this.deadline = this._formatDeadline(this.release.deadline);
+    this.customerDeadline = this._formatDeadline(
+      this.release.managementDeadline,
+    );
 
     this.setSubscriptions();
   }
@@ -116,8 +127,8 @@ export class ReleaseTableLineComponent
       });
   }
 
-  private _formatDeadline(deadline: Date): void {
-    this.deadline = new Intl.DateTimeFormat(navigator.language).format(
+  private _formatDeadline(deadline: Date): string {
+    return new Intl.DateTimeFormat(navigator.language).format(
       new Date(deadline),
     );
   }

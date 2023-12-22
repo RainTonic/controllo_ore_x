@@ -30,7 +30,7 @@
         </div>
       </div>
     </mat-panel-title>
-    <mat-panel-description class="-project__options">
+    <mat-panel-description *appHasRole="ROLE.ADMIN" class="-project__options">
       <button
         mat-flat-button
         extended

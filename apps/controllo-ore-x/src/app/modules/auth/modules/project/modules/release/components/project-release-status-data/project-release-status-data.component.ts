@@ -36,6 +36,9 @@ export class ProjectReleaseStatusDataComponent
 
   subscriptionsList: Subscription[] = [];
 
+  convertNumberToHours: (hoursToConvert?: number) => string =
+    convertNumberToHours;
+
   completeSubscriptions: (subscriptionsList: Subscription[]) => void =
     completeSubscriptions;
 
@@ -60,10 +63,6 @@ export class ProjectReleaseStatusDataComponent
 
   setSubscriptions(): void {
     this.subscriptionsList.push(this._getProject(), this._fetchSetReleases());
-  }
-
-  convertNumberToHours(hoursToConvert: number): string {
-    return convertNumberToHours(hoursToConvert);
   }
 
   private _getProject(): Subscription {

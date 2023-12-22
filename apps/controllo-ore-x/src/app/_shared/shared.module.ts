@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
+import { HasRoleDirective } from '@app/_core/directives/has-role.directive';
 import { RtTableModule } from '@controllo-ore-x/rt-shared';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { GlobalTopbarComponent } from './components/global-topbar/global-topbar.component';
@@ -50,6 +51,7 @@ import { RtHeaderModule } from './modules/rt-header/rt-header.module';
     RtTableModule,
     MatDatepickerModule,
     MatSelectModule,
+    HasRoleDirective,
   ],
   exports: [
     GlobalTopbarComponent,

@@ -1,5 +1,11 @@
 import { ProjectCreateDto } from '@api-interfaces';
-import { IsDate, IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
+import {
+  IsDate,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 
 export class ProjectCreateDtoV implements ProjectCreateDto {
   @IsString()
@@ -8,15 +14,27 @@ export class ProjectCreateDtoV implements ProjectCreateDto {
   @IsUUID()
   customerId: string;
 
+  @IsUUID()
+  @IsOptional()
+  projectManagerId?: string;
+
   @IsOptional()
   @IsString()
   color: string;
 
   @IsOptional()
   @IsNumber()
-  hoursBudget: number;
+  hoursBudget?: number;
+
+  @IsOptional()
+  @IsNumber()
+  billableHoursBudget?: number;
 
   @IsOptional()
   @IsDate()
-  deadline: Date;
+  deadline?: Date;
+
+  @IsOptional()
+  @IsDate()
+  customerDeadline?: Date;
 }
