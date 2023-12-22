@@ -1,7 +1,7 @@
+import { UserHours } from '@modules/user-hours/entities/user-hours.entity';
 import { BaseEntityTemplate } from '@shared/classes/base-entity-template.class';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Project } from './project.entity';
-import { UserHours } from '@modules/user-hours/entities/user-hours.entity';
 
 @Entity()
 export class Release extends BaseEntityTemplate {
@@ -25,6 +25,9 @@ export class Release extends BaseEntityTemplate {
 
   @Column({ nullable: true })
   billableHoursBudget: number;
+
+  @Column({ nullable: true })
+  billedHours: number;
 
   @Column({ nullable: true })
   deadline: Date;

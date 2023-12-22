@@ -9,6 +9,7 @@ export interface ReleaseReadDto {
   isCompleted: boolean;
   hoursBudget: number;
   billableHoursBudget: number;
+  billedHours?: number;
   deadline: Date;
   managementDeadline: Date;
   userHours: UserHoursReadDto[];
@@ -21,8 +22,9 @@ export interface ReleaseCreateDto {
   projectId: string;
   name: string;
   isCompleted: boolean;
-  hoursBudget: number;
-  billableHoursBudget: number;
+  hoursBudget?: number;
+  billableHoursBudget?: number;
+  billedHours?: number;
   deadline: Date;
   managementDeadline: Date;
 }
@@ -33,6 +35,7 @@ export interface ReleaseUpdateDto {
   isCompleted?: boolean;
   hoursBudget?: number;
   billableHoursBudget?: number;
+  billedHours?: number;
   deadline?: Date;
   managementDeadline?: Date;
 }
