@@ -126,6 +126,20 @@
           </mat-datepicker-toggle>
           <mat-datepicker #pickerCustomer></mat-datepicker>
         </mat-form-field>
+
+        <mat-form-field class="col" appearance="outline">
+          <mat-label>Project manager</mat-label>
+          <mat-select
+            matInput
+            placeholder="Project manager"
+            formControlName="projectManager"
+            [compareWith]="compareCustomerFn"
+          >
+            <mat-option *ngFor="let user of users" [value]="user">
+              {{ user.name }} {{ user.surname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </form>
   </div>
