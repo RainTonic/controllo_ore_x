@@ -117,6 +117,8 @@ export class TrackerDialog
   get updateDto(): UserHoursUpdateDto {
     const formValues: any = this.trackerFormGroup.getRawValue();
 
+    formValues.date.setHours(12, 0, 0, 0);
+
     return {
       userId: formValues.user._id,
       releaseId: formValues.release._id,
