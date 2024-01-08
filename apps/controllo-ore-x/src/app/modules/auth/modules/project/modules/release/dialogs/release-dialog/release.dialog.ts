@@ -31,11 +31,12 @@ export class ReleaseDialog {
   releaseFormGroup: FormGroup = new FormGroup({
     projectId: new FormControl(null, Validators.required),
     name: new FormControl(null, Validators.required),
-    hoursBudget: new FormControl(null, Validators.required),
-    billableHoursBudget: new FormControl(null, Validators.required),
-    deadline: new FormControl(null, Validators.required),
-    managementDeadline: new FormControl(null, Validators.required),
-    isCompleted: new FormControl(null, Validators.required),
+    hoursBudget: new FormControl(null),
+    billableHoursBudget: new FormControl(null),
+    billedHours: new FormControl(null),
+    deadline: new FormControl(null),
+    managementDeadline: new FormControl(null),
+    isCompleted: new FormControl(null),
   });
 
   constructor(

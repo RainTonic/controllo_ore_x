@@ -19,6 +19,16 @@
       </div>
     </div>
   </div>
+  <div class="-hours-report__element" *appHasRole="ROLE.ADMIN">
+    <div class="-hours-report__element__content">
+      <div class="body-2 -hours-report__element__content__title">
+        Ore fatturate
+      </div>
+      <div class="headline-4">
+        {{ convertNumberToHours(release.billedHours ?? 0) }}
+      </div>
+    </div>
+  </div>
   <div class="-hours-report__element">
     <div class="-hours-report__element__content">
       <div class="body-2 -hours-report__element__content__title">

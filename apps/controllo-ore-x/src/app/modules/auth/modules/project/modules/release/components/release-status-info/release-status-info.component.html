@@ -61,10 +61,10 @@
     <div class="-info__line">
       <div class="body-2 -info__line__title">
         <span class="material-symbols-outlined">edit_calendar</span>
-        Creazione
+        Budget ore
       </div>
 
-      <div class="body-2">{{ formatDate(release.createdAt!) }}</div>
+      <div class="body-2">{{ convertNumberToHours(release.hoursBudget) }}</div>
     </div>
 
     <div class="-info__line">
@@ -79,6 +79,36 @@
   <ng-container *appHasRole="ROLE.ADMIN">
     <div *ngIf="release" class="-info">
       <div class="headline-6">Amministrazione</div>
+      <div class="-info__line">
+        <div class="body-2 -info__line__title">
+          <span class="material-symbols-outlined">edit_calendar</span>
+          Ore fatturabili
+        </div>
+
+        <div class="body-2">
+          {{ convertNumberToHours(release.billableHoursBudget) }}
+        </div>
+      </div>
+      <div class="-info__line">
+        <div class="body-2 -info__line__title">
+          <span class="material-symbols-outlined">edit_calendar</span>
+          Ore fatturate
+        </div>
+
+        <div class="body-2">
+          {{ convertNumberToHours(release.billedHours) }}
+        </div>
+      </div>
+      <div class="-info__line">
+        <div class="body-2 -info__line__title">
+          <span class="material-symbols-outlined">edit_calendar</span>
+          Ore lavorate
+        </div>
+
+        <div class="body-2">
+          {{ convertNumberToHours(hoursExecuted) }}
+        </div>
+      </div>
       <div class="-info__line">
         <div class="body-2 -info__line__title">
           <span class="material-symbols-outlined">calendar_clock</span>

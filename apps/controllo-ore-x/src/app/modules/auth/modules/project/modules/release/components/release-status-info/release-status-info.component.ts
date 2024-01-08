@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ApiResponse, ROLE, ReleaseReadDto } from '@api-interfaces';
 import { ReleaseDataService } from '@app/_core/services/release.data-service';
+import { convertNumberToHours } from '@app/utils/NumberToHoursConverter';
 import {
   SubscriptionsLifecycle,
   completeSubscriptions,
@@ -29,6 +30,8 @@ export class ReleaseStatusInfoComponent
 
   completeSubscriptions: (subscriptionsList: Subscription[]) => void =
     completeSubscriptions;
+
+  convertNumberToHours = convertNumberToHours;
 
   constructor(private _releaseDataService: ReleaseDataService) {}
 

@@ -87,7 +87,7 @@
 
   <ng-container *appHasRole="ROLE.ADMIN">
     <div *ngIf="project" class="-info">
-      <div class="headline-6">Amministrazione</div>
+      <div class="headline-6">Amministrazione del Progetto</div>
 
       <div class="-info__line">
         <div class="body-2 -info__line__title">
@@ -101,16 +101,7 @@
           </div>
         </div>
       </div>
-      <div class="-info__line">
-        <div class="body-2 -info__line__title">
-          <span class="material-symbols-outlined">paid</span>
-          Sommatoria ore fatturate
-        </div>
 
-        <div class="body-2">
-          {{ convertNumberToHours(hoursExecuted) }}
-        </div>
-      </div>
       <div class="-info__line">
         <div class="body-2 -info__line__title">
           <span class="material-symbols-outlined">event</span>
@@ -118,6 +109,35 @@
         </div>
 
         <div class="body-2">{{ formatDate(project.customerDeadline) }}</div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *appHasRole="ROLE.ADMIN">
+    <div *ngIf="project" class="-info">
+      <div class="headline-6">Amministrazione delle Release</div>
+
+      <div class="-info__line">
+        <div class="body-2 -info__line__title">
+          <span class="material-symbols-outlined">avg_time</span>
+          Sommatoria ore fatturabili
+        </div>
+
+        <div class="body-2">
+          <div class="body-2">
+            {{ convertNumberToHours(billableReleasesHours) }}
+          </div>
+        </div>
+      </div>
+      <div class="-info__line">
+        <div class="body-2 -info__line__title">
+          <span class="material-symbols-outlined">paid</span>
+          Sommatoria ore fatturate
+        </div>
+
+        <div class="body-2">
+          {{ convertNumberToHours(billedReleasesHours) }}
+        </div>
       </div>
 
       <div class="-info__line">
@@ -127,16 +147,6 @@
         </div>
 
         <div class="body-2">{{ releases?.length ?? '-' }}</div>
-      </div>
-      <div class="-info__line">
-        <div class="body-2 -info__line__title">
-          <span class="material-symbols-outlined">avg_time</span>
-          Sommatoria ore fatturabili
-        </div>
-
-        <div class="body-2">
-          {{ convertNumberToHours(billableReleasesHours) }}
-        </div>
       </div>
     </div>
   </ng-container>

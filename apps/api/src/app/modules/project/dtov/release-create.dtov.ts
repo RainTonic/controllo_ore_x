@@ -27,6 +27,10 @@ export class ReleaseCreateDtoV implements ReleaseCreateDto {
   billableHoursBudget: number;
 
   @IsOptional()
+  @IsNumber()
+  billedHours: number;
+
+  @IsOptional()
   @IsDate()
   deadline: Date;
 

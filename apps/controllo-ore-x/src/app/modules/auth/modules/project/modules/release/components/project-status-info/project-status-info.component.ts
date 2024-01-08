@@ -107,6 +107,7 @@ export class ProjectStatusInfoComponent
           this.releases = releases.data;
           for (const release of releases.data) {
             this.billableReleasesHours += Number(release.billableHoursBudget);
+            this.billedReleasesHours += Number(release.billedHours);
             this.totalHoursBudget += Number(release.hoursBudget);
             if (!release.isCompleted) {
               this.isCompleted = false;
