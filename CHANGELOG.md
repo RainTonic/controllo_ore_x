@@ -7,15 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Sistemato il fuso orario quando si modifica un'ora lavorativa.
+
 ## [1.0.3]
 
-* Applicato la visione delle sezione in base al ruolo dell'utente
+### Features Aggiunte
+
+- Applicato la visione delle sezione in base al ruolo dell'utente.
 
 ## [1.0.2]
 
-### Aggiunte
+### Features Aggiunte
 
-- Cambiato interfaccia dettaglio progetto e aggiunto nuovi campi utili all'amministrazione
+- Cambiato interfaccia dettaglio progetto e aggiunto nuovi campi utili all'amministrazione.
 
 ## [1.0.1]
 
