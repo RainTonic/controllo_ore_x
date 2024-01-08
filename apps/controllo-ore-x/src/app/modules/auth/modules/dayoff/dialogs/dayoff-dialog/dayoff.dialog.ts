@@ -1,14 +1,10 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DAYOFF_STATUS, DayoffReadDto, DayoffUpdateDto } from '@api-interfaces';
 import { AuthService } from '@app/_core/services/auth.service';
 import { DayoffDataService } from '@app/_core/services/dayoff.data-service';
 import { CalendarDateService } from '@app/_shared/components/index-template/services/calendar-date.service';
-import {
-  SubscriptionsLifecycle,
-  completeSubscriptions,
-} from '@app/utils/subscriptions_lifecycle';
 import {
   IRtDialogClose,
   IRtDialogInput,
@@ -17,14 +13,13 @@ import {
 } from '@controllo-ore-x/rt-shared';
 import { AlertService } from 'libs/rt-shared/src/alert/services/alert.service';
 import { RT_FORM_ERRORS, RtFormError } from 'libs/utils';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'controllo-ore-x-dayoff-dialog',
   templateUrl: './dayoff.dialog.html',
   styleUrls: ['./dayoff.dialog.scss'],
 })
-export class DayoffDialog implements OnInit, OnDestroy, SubscriptionsLifecycle {
+export class DayoffDialog {
   title: string = 'Inserimento giustificativo';
   transactionStatus: 'create' | 'update' = 'create';
   RT_FORM_ERRORS: { [key: string]: RtFormError } = RT_FORM_ERRORS;
@@ -49,11 +44,6 @@ export class DayoffDialog implements OnInit, OnDestroy, SubscriptionsLifecycle {
   date: Date = new Date();
   isAllDaySliderChecked: boolean = false;
   isAllDaySliderDisabled: boolean = false;
-
-  subscriptionsList: Subscription[] = [];
-
-  completeSubscriptions: (subscriptionsList: Subscription[]) => void =
-    completeSubscriptions;
 
   constructor(
     private _dayoffDataService: DayoffDataService,
@@ -95,11 +85,13 @@ export class DayoffDialog implements OnInit, OnDestroy, SubscriptionsLifecycle {
       }
       return;
     }
+    const date: Date = new Date();
+    date.setHours(0, 0, 0, 0);
     this.dayoffFormGroup.patchValue({
       startTime: '00:00',
       endTime: '00:00',
-      startDate: this.date,
-      endDate: this.date,
+      startDate: date,
+      endDate: date,
     });
   }
 
@@ -114,18 +106,6 @@ export class DayoffDialog implements OnInit, OnDestroy, SubscriptionsLifecycle {
       hours: formValues.hours,
       status: DAYOFF_STATUS.PENDING,
     };
-  }
-
-  ngOnInit(): void {
-    this.setSubscriptions();
-  }
-
-  ngOnDestroy(): void {
-    this.completeSubscriptions(this.subscriptionsList);
-  }
-
-  setSubscriptions(): void {
-    this.subscriptionsList.push(this._getSelectedDate());
   }
 
   onDelete(): void {
@@ -211,18 +191,6 @@ export class DayoffDialog implements OnInit, OnDestroy, SubscriptionsLifecycle {
     } else {
       this.isAllDaySliderDisabled = false;
     }
-  }
-
-  private _getSelectedDate(): Subscription {
-    return this._calendarDateService.currentDateObservable.subscribe({
-      next: (selectedDate: Date) => {
-        this.date = new Date(selectedDate);
-        this.date.setHours(0, 0, 0, 0);
-      },
-      error: (error: any) => {
-        throw new Error(error);
-      },
-    });
   }
 
   private _createDate(date: Date, hours: string): Date {
