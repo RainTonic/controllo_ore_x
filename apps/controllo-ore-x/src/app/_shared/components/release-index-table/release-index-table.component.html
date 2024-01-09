@@ -1,0 +1,79 @@
+<table class="-table__main" aria-describedby="releaseTable">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="body-2"><div>Nome</div></th>
+      <th class="body-2"><div>Consegna</div></th>
+      <th class="body-2" *appHasRole="ROLE.ADMIN">
+        <div>Consegna cliente</div>
+      </th>
+      <th class="body-2"><div>Budget</div></th>
+      <th class="body-2" *appHasRole="ROLE.ADMIN">
+        <div>Ore fatturabili</div>
+      </th>
+      <th class="body-2" *appHasRole="ROLE.ADMIN"><div>Ore fatturate</div></th>
+      <th class="-action-column w-16"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let release of releases" class="-release">
+      <td></td>
+      <td>
+        <div [ngClass]="{ '-release--completed': release.isCompleted }">
+          {{ release.name }}
+        </div>
+      </td>
+      <td class="-release__date">{{ formatDeadline(release.deadline) }}</td>
+      <td class="-release__date" *appHasRole="ROLE.ADMIN">
+        {{ formatDeadline(release.managementDeadline) }}
+      </td>
+      <td class="-release__progress">
+        <mat-progress-bar
+          class="-release__progress__bar"
+          mode="determinate"
+          value="{{
+            (100 * releasesBudget[release._id]) / release.hoursBudget
+          }}"
+        ></mat-progress-bar>
+        <div class="body-1 -release__progress__hours">
+          <div class="-release__progress__hours--executed">
+            {{ convertNumberToHours(releasesBudget[release._id]) }}&nbsp;/&nbsp;
+          </div>
+          <div class="-release__progress__hours--planned">
+            {{ convertNumberToHours(release.hoursBudget) }}
+          </div>
+        </div>
+      </td>
+      <td *appHasRole="ROLE.ADMIN">
+        {{ convertNumberToHours(release.billableHoursBudget) }}
+      </td>
+      <td *appHasRole="ROLE.ADMIN">
+        {{ convertNumberToHours(release.billedHours ?? 0) }}
+      </td>
+      <td>
+        <div class="-release__options">
+          <button
+            mat-icon-button
+            (click)="openEditRelease(release)"
+            *appHasRole="ROLE.ADMIN"
+          >
+            <span class="material-symbols-outlined -release__options__icon"
+              >ink_marker
+            </span>
+          </button>
+          <button
+            mat-flat-button
+            extended
+            class="-release__options__report"
+            (click)="openReleaseReport(release)"
+          >
+            <div class="-release__options__report__content">
+              <span class="material-symbols-outlined">chair</span>
+              <div class="body-2">Dettaglio</div>
+            </div>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

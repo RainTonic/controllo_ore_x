@@ -9,11 +9,13 @@ import {
 import { Router } from '@angular/router';
 import {
   ApiResponse,
+  FIND_BOOSTED_FN,
   ROLE,
   ReleaseReadDto,
   UserHoursReadDto,
 } from '@api-interfaces';
 import { UserHoursDataService } from '@app/_core/services/user-hour.data-service';
+import { ReleaseDialog } from '@app/modules/auth/modules/project/modules/release/dialogs/release-dialog/release.dialog';
 import { convertNumberToHours } from '@app/utils/NumberToHoursConverter';
 import {
   SubscriptionsLifecycle,
@@ -24,24 +26,20 @@ import {
   RtDialogService,
 } from '@controllo-ore-x/rt-shared';
 import { Subscription } from 'rxjs';
-import { ReleaseDialog } from '../../dialogs/release-dialog/release.dialog';
 
 @Component({
-  selector: 'controllo-ore-x-release-table-line',
-  templateUrl: './release-table-line.component.html',
-  styleUrls: ['./release-table-line.component.scss'],
+  selector: 'controllo-ore-x-release-index-table',
+  templateUrl: './release-index-table.component.html',
+  styleUrls: ['./release-index-table.component.scss'],
 })
-export class ReleaseTableLineComponent
+export class ReleaseIndexTableComponent
   implements OnInit, OnDestroy, SubscriptionsLifecycle
 {
-  @Input() release!: ReleaseReadDto;
-
+  @Input() releases: ReleaseReadDto[] = [];
   @Output() onReleaseUpdatedEvent: EventEmitter<void> =
     new EventEmitter<void>();
 
-  hoursExecuted: number = 0;
-  deadline: string = '';
-  customerDeadline: string = '';
+  releasesBudget: { [releaseId: string]: number } = {};
 
   subscriptionsList: Subscription[] = [];
 
@@ -51,23 +49,12 @@ export class ReleaseTableLineComponent
     completeSubscriptions;
 
   constructor(
-    private _userHoursDataService: UserHoursDataService,
     private _router: Router,
     private _rtDialogService: RtDialogService,
+    private _userHoursDataService: UserHoursDataService,
   ) {}
 
   ngOnInit(): void {
-    if (!this.release) {
-      throw new Error('release is required');
-    }
-    if (typeof this.release !== 'object') {
-      throw new Error('release must be a ReleaseReadDto object');
-    }
-    this.deadline = this._formatDeadline(this.release.deadline);
-    this.customerDeadline = this._formatDeadline(
-      this.release.managementDeadline,
-    );
-
     this.setSubscriptions();
   }
 
@@ -76,7 +63,11 @@ export class ReleaseTableLineComponent
   }
 
   setSubscriptions(): void {
-    this.subscriptionsList.push(this._getHoursExecuted());
+    this.subscriptionsList.push(this._getHoursExecuted(this.releases));
+  }
+
+  openReleaseReport(release: ReleaseReadDto): void {
+    this._router.navigate([this._router.url + '/report/' + release._id]);
   }
 
   openEditRelease(release: ReleaseReadDto): void {
@@ -102,34 +93,41 @@ export class ReleaseTableLineComponent
     );
   }
 
-  openReleaseReport(release: ReleaseReadDto): void {
-    this._router.navigate([this._router.url + '/report/' + release._id]);
-  }
-
   convertNumberToHours(hoursToConvert: number): string {
     return convertNumberToHours(hoursToConvert);
   }
 
-  private _getHoursExecuted(): Subscription {
+  formatDeadline(deadline: Date): string {
+    return new Intl.DateTimeFormat(navigator.language).format(
+      new Date(deadline),
+    );
+  }
+
+  private _getHoursExecuted(releases: ReleaseReadDto[]): Subscription {
     return this._userHoursDataService
       .getMany({
-        where: { releaseId: this.release._id },
+        where: {
+          releaseId: {
+            _fn: FIND_BOOSTED_FN.STRING_IN,
+            args: releases.map((release) => release._id),
+          },
+        },
       })
       .subscribe({
         next: (userHours: ApiResponse<UserHoursReadDto[]>) => {
           userHours.data.forEach((userHour: UserHoursReadDto) => {
-            this.hoursExecuted += Number(userHour.hours);
+            if (!this.releasesBudget[userHour.releaseId]) {
+              this.releasesBudget[userHour.releaseId] = Number(userHour.hours);
+            } else {
+              const hours: number = this.releasesBudget[userHour.releaseId];
+              this.releasesBudget[userHour.releaseId] =
+                hours + Number(userHour.hours);
+            }
           });
         },
         error: (error: any) => {
           throw new Error(error);
         },
       });
-  }
-
-  private _formatDeadline(deadline: Date): string {
-    return new Intl.DateTimeFormat(navigator.language).format(
-      new Date(deadline),
-    );
   }
 }

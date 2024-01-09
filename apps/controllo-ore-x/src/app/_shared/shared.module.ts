@@ -8,6 +8,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { HasRoleDirective } from '@app/_core/directives/has-role.directive';
@@ -17,6 +18,7 @@ import { GlobalTopbarComponent } from './components/global-topbar/global-topbar.
 import { IndexTemplateComponent } from './components/index-template/index-template.component';
 import { PageTitleComponent } from './components/page-title/page-title.component';
 import { RangeDatepickerComponent } from './components/range-datepicker/range-datepicker.component';
+import { ReleaseIndexTableComponent } from './components/release-index-table/release-index-table.component';
 import { ReportFilterComponent } from './components/report-template/components/report-filter/report-filter.component';
 import { ReportSingleFilterComponent } from './components/report-template/components/report-single-filter/report-single-filter.component';
 import { ReportTemplateComponent } from './components/report-template/report-template.component';
@@ -37,6 +39,7 @@ import { RtHeaderModule } from './modules/rt-header/rt-header.module';
     ReportSingleFilterComponent,
     DatepickerComponent,
     RangeDatepickerComponent,
+    ReleaseIndexTableComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +55,7 @@ import { RtHeaderModule } from './modules/rt-header/rt-header.module';
     MatDatepickerModule,
     MatSelectModule,
     HasRoleDirective,
+    MatProgressBarModule,
   ],
   exports: [
     GlobalTopbarComponent,
@@ -59,6 +63,7 @@ import { RtHeaderModule } from './modules/rt-header/rt-header.module';
     PageTitleComponent,
     IndexTemplateComponent,
     ReportTemplateComponent,
+    ReleaseIndexTableComponent,
   ],
   providers: [FilterService, { provide: MAT_DATE_LOCALE, useValue: 'it-IT' }],
 })

@@ -33,8 +33,6 @@ import { ReleaseStatusDataHoursTagTableLineComponent } from './components/releas
 import { ReleaseStatusDataHoursTagComponent } from './components/release-status-data-hours-tag/release-status-data-hours-tag.component';
 import { ReleaseStatusDataComponent } from './components/release-status-data/release-status-data.component';
 import { ReleaseStatusInfoComponent } from './components/release-status-info/release-status-info.component';
-import { ReleaseTableHeaderComponent } from './components/release-table-header/release-table-header.component';
-import { ReleaseTableLineComponent } from './components/release-table-line/release-table-line.component';
 import { ReleaseTableComponent } from './components/release-table/release-table.component';
 import { ReleaseDialog } from './dialogs/release-dialog/release.dialog';
 import { ReleaseIndexPage } from './pages/release-index/release-index.page';
@@ -46,8 +44,6 @@ import { ReleaseRoutingModule } from './release-routing.module';
     ReleaseIndexPage,
     ReleaseTableComponent,
     ProjectReleaseStatusComponent,
-    ReleaseTableLineComponent,
-    ReleaseTableHeaderComponent,
     ReportIndexPage,
     ReleaseDialog,
     ProjectActivityCardComponent,
