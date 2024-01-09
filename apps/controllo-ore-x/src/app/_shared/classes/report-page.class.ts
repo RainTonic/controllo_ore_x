@@ -186,6 +186,8 @@ export abstract class ReportPage<T, CreateT, UpdateT>
     const dataResult: ApiPaginatedResponse<T> = await firstValueFrom(data);
     this.indexTableHandler.data = dataResult.data;
     this.setFilters();
+
+    // todo capire se serve
     this.changeDataForFilters();
     this.changeDataForDate();
   }
