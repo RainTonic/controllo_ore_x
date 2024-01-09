@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Features Aggiunte
+
+- Aggiornata la grafica della tabella delle release nella pagina di informazioni di un progetto.
+
 ## [1.0.3]
 
-* Applicato la visione delle sezione in base al ruolo dell'utente
+- Applicato la visione delle sezione in base al ruolo dell'utente
 
 ## [1.0.2]
 
