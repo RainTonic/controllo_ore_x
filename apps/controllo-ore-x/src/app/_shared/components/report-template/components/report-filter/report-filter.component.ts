@@ -13,6 +13,7 @@ import {
 import { DataForFilter } from 'libs/utils';
 import { Subscription } from 'rxjs';
 import { FilterService } from '../../services/filter.service';
+
 @Component({
   selector: 'controllo-ore-x-report-filter',
   templateUrl: './report-filter.component.html',
@@ -49,6 +50,7 @@ export class ReportFilterComponent
         (dataForFilters: DataForFilter[]) => {
           this.dataForFilters = dataForFilters;
           this._areAnyFiltersActive();
+          this.applyFn();
         },
       ),
     );
