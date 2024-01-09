@@ -74,7 +74,7 @@ export class ReportIndexPage extends ReportPage<
   }
 
   /**
-   *
+   * set the filters for the index page
    */
   setFilters(): void {
     this.dataForFilters = [];
@@ -140,7 +140,7 @@ export class ReportIndexPage extends ReportPage<
   }
 
   /**
-   *
+   * handle the cascade dependency between filters
    */
   private _listenForCascadeFilterLogic(): void {
     const customerFilter: DataForFilter | undefined = this.dataForFilters.find(
