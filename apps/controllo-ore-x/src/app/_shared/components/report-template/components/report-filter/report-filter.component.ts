@@ -26,8 +26,6 @@ export class ReportFilterComponent
 
   dataForFilters: DataForFilter[] = [];
 
-  areFiltersActive: boolean = false;
-
   subscriptionsList: Subscription[] = [];
 
   completeSubscriptions: (subscriptionsList: Subscription[]) => void =
@@ -48,7 +46,6 @@ export class ReportFilterComponent
       this._filterService.dataForFiltersObservable.subscribe(
         (dataForFilters: DataForFilter[]) => {
           this.dataForFilters = dataForFilters;
-          this._areAnyFiltersActive();
         },
       ),
     );
@@ -62,7 +59,6 @@ export class ReportFilterComponent
           const newValue = filter.formControl.value;
           newValue.splice(index, 1);
           dataForFilter.formControl.setValue(newValue);
-          this._areAnyFiltersActive();
           this.applyFn();
         }
       }
@@ -73,20 +69,11 @@ export class ReportFilterComponent
     this.dataForFilters.forEach((dataForFilter: DataForFilter) => {
       dataForFilter.formControl.setValue([]);
     });
-    this.areFiltersActive = false;
     this.filtersEvent.emit([]);
   }
 
   applyFn(): void {
     this.filtersEvent.emit([this._buildFilters()]);
-  }
-
-  private _areAnyFiltersActive(): void {
-    this.areFiltersActive = false;
-    this.dataForFilters.forEach((dataForFilter: DataForFilter) => {
-      this.areFiltersActive =
-        this.areFiltersActive || !!dataForFilter.formControl.value?.length;
-    });
   }
 
   private _createNestedStructure(dbColumnsFlat: string[], args: string[]): any {
