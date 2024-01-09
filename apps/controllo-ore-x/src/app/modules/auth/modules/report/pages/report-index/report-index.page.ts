@@ -167,6 +167,7 @@ export class ReportIndexPage extends ReportPage<
         if (!selectedCustomers || !selectedCustomers?.length) {
           projectFilter.list = this.projects;
           releaseFilter.list = this.releases;
+          return;
         }
 
         if (Array.isArray(selectedCustomers)) {
@@ -179,8 +180,26 @@ export class ReportIndexPage extends ReportPage<
           projectFilter.list = selectableProjects;
           releaseFilter.list = selectableReleases;
         }
-        projectFilterFC.reset();
-        releaseFilterFC.reset();
+
+        const previousSelectedProjects: ProjectReadDto[] =
+          projectFilterFC.value;
+        if (previousSelectedProjects) {
+          //there are some projects previously selected
+          const actualSelectedProjects = previousSelectedProjects.filter((p) =>
+            selectedCustomers.map((sC) => sC._id).includes(p.customerId),
+          );
+          projectFilterFC.setValue(actualSelectedProjects);
+        }
+
+        const previousSelectedReleases: ReleaseReadDto[] =
+          releaseFilterFC.value;
+        if (previousSelectedReleases) {
+          //there are some releases previously selected
+          const actualSelectedReleases = previousSelectedReleases.filter((r) =>
+            projectFilter.list.map((aSP) => aSP._id).includes(r.projectId),
+          );
+          releaseFilterFC.setValue(actualSelectedReleases);
+        }
       },
     );
 
@@ -198,7 +217,16 @@ export class ReportIndexPage extends ReportPage<
           );
           releaseFilter.list = selectableReleases;
         }
-        releaseFilterFC.reset();
+
+        const previousSelectedReleases: ReleaseReadDto[] =
+          releaseFilterFC.value;
+        if (previousSelectedReleases) {
+          //there are some releases previously selected
+          const actualSelectedReleases = previousSelectedReleases.filter((r) =>
+            selectedProject.map((sP) => sP._id).includes(r.projectId),
+          );
+          releaseFilterFC.setValue(actualSelectedReleases);
+        }
       },
     );
   }
