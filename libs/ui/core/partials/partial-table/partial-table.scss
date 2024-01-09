@@ -1,0 +1,71 @@
+.-table {
+  display: block;
+  width: 100%;
+
+  &__main {
+    width: 100%;
+    border-collapse: collapse;
+    background: $table-light-background;
+    border: 1px solid $table-border-color;
+
+    thead {
+      background: $table-background-even;
+      height: $table-header-height;
+      color: $general-header-color;
+
+      th {
+        box-sizing: border-box;
+        border-left: 1px solid $table-border-color;
+        font-size: $table-font-size-column;
+        padding: 14px 10px;
+
+        div {
+          display: flex;
+        }
+
+        &:first-child {
+          padding-left: 40px;
+        }
+
+        &:last-child {
+          border-right: 1px solid $table-border-color;
+        }
+      }
+
+      tr {
+        border-bottom: 1px solid $table-border-color;
+
+        .-action-column {
+          border-left: 1px solid $table-border-color;
+        }
+      }
+    }
+
+    tbody {
+      background: #ffffff;
+
+      tr {
+        border-bottom: 1px solid $table-border-color;
+        border-collapse: collapse;
+
+        &:first-child {
+          padding-left: 40px;
+        }
+
+        td {
+          height: $table-td-height;
+          padding: 0 10px;
+          font-size: $table-font-size-column;
+          max-width: 200px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        &:first-child {
+          padding-left: 40px;
+        }
+      }
+    }
+  }
+}
